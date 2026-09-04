@@ -1,337 +1,1247 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tiempo Afuera</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #f4f6f8;
-      color: #1f2937;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Freedom Bikes | Tiempo Afuera</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:
+        linear-gradient(
+            180deg,
+            #edf3f8 0%,
+            #f6f8fa 45%,
+            #eef2f6 100%
+        );
+    color:#10213b;
+    min-height:100vh;
+}
+
+
+/* ==============================
+   HEADER
+================================ */
+
+.header{
+    text-align:center;
+    padding:25px 20px 20px;
+}
+
+.logo{
+    width:min(620px,90%);
+    height:auto;
+    display:block;
+    margin:0 auto;
+}
+
+.tagline{
+    margin-top:14px;
+    font-size:18px;
+    letter-spacing:7px;
+    font-weight:700;
+    color:#40516b;
+}
+
+
+/* ==============================
+   MAIN
+================================ */
+
+.container{
+    width:min(1000px,94%);
+    margin:auto;
+    padding-bottom:50px;
+}
+
+
+/* ==============================
+   CARDS
+================================ */
+
+.card{
+    background:rgba(255,255,255,.96);
+    border-radius:24px;
+    padding:35px;
+    margin-bottom:28px;
+
+    box-shadow:
+        0 12px 35px rgba(25,45,70,.10);
+
+    border:1px solid rgba(220,228,236,.9);
+}
+
+
+/* ==============================
+   TITLE
+================================ */
+
+.title-row{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.title-icon{
+    font-size:50px;
+}
+
+h1{
+    margin:0;
+    font-size:44px;
+    color:#10213b;
+}
+
+.subtitle{
+    margin:8px 0 28px 68px;
+    font-size:18px;
+    color:#52647c;
+}
+
+
+/* ==============================
+   CURRENT TIME
+================================ */
+
+.time-box{
+    background:#f2f5f8;
+    border-radius:18px;
+    padding:20px 25px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    margin-bottom:25px;
+}
+
+.time-left{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.clock-icon{
+    font-size:34px;
+}
+
+.time-label{
+    font-size:16px;
+    color:#52647c;
+}
+
+.current-time{
+    font-size:31px;
+    font-weight:800;
+    margin-top:3px;
+    color:#10213b;
+}
+
+.date{
+    font-size:16px;
+    color:#263c5a;
+}
+
+
+/* ==============================
+   INPUT
+================================ */
+
+.input-row{
+    display:grid;
+    grid-template-columns:1fr 220px;
+    gap:18px;
+}
+
+.time-input{
+    width:100%;
+    padding:20px;
+
+    border:2px solid #d4dde7;
+    border-radius:16px;
+
+    font-size:22px;
+    color:#10213b;
+
+    outline:none;
+
+    transition:.2s;
+}
+
+.time-input:focus{
+    border-color:#10213b;
+    box-shadow:0 0 0 3px rgba(16,33,59,.08);
+}
+
+.calculate{
+    border:none;
+    border-radius:16px;
+
+    background:#10213b;
+    color:white;
+
+    font-size:20px;
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.calculate:hover{
+    transform:translateY(-1px);
+    box-shadow:0 8px 20px rgba(16,33,59,.18);
+}
+
+.hint{
+    margin-top:15px;
+    color:#52647c;
+    font-size:15px;
+}
+
+
+/* ==============================
+   RESULT
+================================ */
+
+.result{
+    display:none;
+
+    margin-top:28px;
+
+    padding:25px;
+
+    border-radius:18px;
+
+    background:#eaf8ef;
+
+    border:1px solid #c8ead5;
+
+    color:#075d32;
+}
+
+.result-label{
+    font-size:18px;
+}
+
+.result-time{
+    margin-top:5px;
+
+    font-size:35px;
+    font-weight:800;
+}
+
+
+/* ==============================
+   ACTIVE RECORDS
+================================ */
+
+.records-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+
+    margin-bottom:22px;
+}
+
+.records-title{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.records-title h2{
+    margin:0;
+    font-size:30px;
+}
+
+.records-description{
+    color:#617189;
+    margin-top:5px;
+}
+
+.clear-button{
+    border:none;
+
+    padding:14px 18px;
+
+    border-radius:14px;
+
+    background:#edf1f5;
+    color:#263c5a;
+
+    font-weight:700;
+    cursor:pointer;
+}
+
+
+/* ==============================
+   RECORD
+================================ */
+
+.entries{
+    display:grid;
+    gap:12px;
+}
+
+.entry{
+    background:#f5f7f9;
+
+    border-radius:16px;
+
+    padding:20px;
+
+    display:grid;
+    grid-template-columns:1fr auto auto;
+
+    gap:20px;
+
+    align-items:center;
+}
+
+.arrival{
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    font-size:18px;
+}
+
+.arrival-icon{
+    font-size:27px;
+}
+
+.arrival strong{
+    font-size:20px;
+}
+
+.elapsed{
+    font-size:18px;
+    font-weight:800;
+    color:#10213b;
+}
+
+.delete{
+    border:none;
+
+    width:38px;
+    height:38px;
+
+    border-radius:10px;
+
+    background:#e8edf2;
+
+    color:#53657c;
+
+    font-size:20px;
+
+    cursor:pointer;
+}
+
+.empty{
+    text-align:center;
+    padding:25px;
+    color:#8290a2;
+}
+
+
+/* ==============================
+   FOOTER
+================================ */
+
+.footer{
+    text-align:center;
+
+    color:#8190a3;
+
+    font-size:13px;
+
+    padding:10px 20px 35px;
+}
+
+
+/* ==============================
+   MOBILE
+================================ */
+
+@media(max-width:700px){
+
+    .header{
+        padding-top:20px;
     }
-    .app {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 28px 18px 48px;
+
+    .logo{
+        width:95%;
     }
-    .card {
-      background: white;
-      border-radius: 20px;
-      padding: 24px;
-      box-shadow: 0 10px 30px rgba(0,0,0,.08);
-      margin-bottom: 18px;
+
+    .tagline{
+        font-size:12px;
+        letter-spacing:4px;
     }
-    h1 {
-      margin: 0 0 8px;
-      font-size: 2rem;
+
+    .card{
+        padding:24px 20px;
+        border-radius:20px;
     }
-    .subtitle {
-      margin: 0 0 22px;
-      color: #6b7280;
+
+    h1{
+        font-size:32px;
     }
-    .clock {
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-bottom: 22px;
+
+    .title-icon{
+        font-size:38px;
     }
-    .input-row {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 12px;
+
+    .subtitle{
+        margin-left:0;
+        font-size:16px;
     }
-    input[type="time"] {
-      width: 100%;
-      padding: 14px 16px;
-      border: 1px solid #d1d5db;
-      border-radius: 12px;
-      font-size: 1rem;
-      background: white;
+
+    .time-box{
+        align-items:flex-start;
+        flex-direction:column;
+        gap:14px;
     }
-    button {
-      border: 0;
-      border-radius: 12px;
-      padding: 14px 18px;
-      cursor: pointer;
-      font-size: .98rem;
-      font-weight: 700;
+
+    .input-row{
+        grid-template-columns:1fr;
     }
-    .primary {
-      background: #111827;
-      color: white;
+
+    .calculate{
+        padding:18px;
     }
-    .primary:hover { opacity: .9; }
-    .result {
-      margin-top: 18px;
-      padding: 16px;
-      background: #f9fafb;
-      border-radius: 14px;
-      display: none;
+
+    .records-header{
+        align-items:flex-start;
+        flex-direction:column;
     }
-    .result strong {
-      font-size: 1.3rem;
+
+    .entry{
+        grid-template-columns:1fr auto;
     }
-    .list-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 12px;
+
+    .elapsed{
+        grid-column:1;
+        padding-left:39px;
     }
-    .list-head h2 {
-      margin: 0;
-      font-size: 1.2rem;
+
+    .delete{
+        grid-column:2;
+        grid-row:1 / span 2;
     }
-    .clear {
-      background: #eef2f7;
-      color: #374151;
-      padding: 9px 12px;
-    }
-    .entries {
-      display: grid;
-      gap: 10px;
-    }
-    .entry {
-      display: grid;
-      grid-template-columns: 1fr auto auto;
-      gap: 10px;
-      align-items: center;
-      padding: 14px;
-      background: #f9fafb;
-      border-radius: 14px;
-    }
-    .entry-time {
-      font-weight: 700;
-    }
-    .elapsed {
-      color: #4b5563;
-      font-weight: 600;
-      text-align: right;
-    }
-    .remove {
-      background: transparent;
-      color: #9ca3af;
-      padding: 6px 8px;
-      font-size: 1.1rem;
-    }
-    .empty {
-      color: #9ca3af;
-      text-align: center;
-      padding: 16px 0 4px;
-    }
-    .note {
-      font-size: .85rem;
-      color: #9ca3af;
-      margin-top: 14px;
-    }
-    @media (max-width: 560px) {
-      .input-row {
-        grid-template-columns: 1fr;
-      }
-      .entry {
-        grid-template-columns: 1fr auto;
-      }
-      .elapsed {
-        grid-column: 1 / 2;
-        grid-row: 2;
-        text-align: left;
-      }
-      .remove {
-        grid-column: 2;
-        grid-row: 1 / span 2;
-      }
-    }
-  </style>
+
+}
+
+</style>
 </head>
+
+
 <body>
-  <main class="app">
-    <section class="card">
-      <h1>⏱️ Tiempo Afuera</h1>
-      <p class="subtitle">Ingresa la hora de llegada y calcula automáticamente cuánto tiempo llevan afuera.</p>
-      <div class="clock" id="clock">Hora actual: --:--</div>
 
-      <div class="input-row">
-        <input id="arrivalTime" type="time" step="60" />
-        <button class="primary" id="calculateBtn">Calcular y agregar</button>
-      </div>
 
-      <div class="result" id="result"></div>
-      <div class="note">La app usa la hora actual de Vancouver (America/Vancouver).</div>
-    </section>
+<!-- HEADER -->
 
-    <section class="card">
-      <div class="list-head">
-        <h2>Registros activos</h2>
-        <button class="clear" id="clearBtn">Limpiar todo</button>
-      </div>
-      <div class="entries" id="entries"></div>
-    </section>
-  </main>
+<header class="header">
 
-  <script>
-    const TIME_ZONE = "America/Vancouver";
-    const arrivalInput = document.getElementById("arrivalTime");
-    const calculateBtn = document.getElementById("calculateBtn");
-    const result = document.getElementById("result");
-    const entriesEl = document.getElementById("entries");
-    const clockEl = document.getElementById("clock");
-    const clearBtn = document.getElementById("clearBtn");
+    <img
+        src="FB.png"
+        alt="Freedom Bikes Rentals"
+        class="logo"
+    >
 
-    let entries = JSON.parse(localStorage.getItem("timeOutsideEntries") || "[]");
+    <div class="tagline">
+        RIDE • EXPLORE • BE FREE
+    </div>
 
-    function getVancouverParts() {
-      const parts = new Intl.DateTimeFormat("en-CA", {
-        timeZone: TIME_ZONE,
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: false
-      }).formatToParts(new Date());
+</header>
 
-      const map = {};
-      parts.forEach(p => { if (p.type !== "literal") map[p.type] = p.value; });
 
-      return {
-        year: Number(map.year),
-        month: Number(map.month),
-        day: Number(map.day),
-        hour: Number(map.hour),
-        minute: Number(map.minute),
-        second: Number(map.second)
-      };
-    }
 
-    function currentMinutes() {
-      const p = getVancouverParts();
-      return p.hour * 60 + p.minute + p.second / 60;
-    }
+<main class="container">
 
-    function formatClock() {
-      return new Intl.DateTimeFormat("en-US", {
-        timeZone: TIME_ZONE,
-        hour: "numeric",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: true
-      }).format(new Date());
-    }
 
-    function format12Hour(hhmm) {
-      const [h, m] = hhmm.split(":").map(Number);
-      const period = h >= 12 ? "PM" : "AM";
-      const hour = ((h + 11) % 12) + 1;
-      return `${hour}:${String(m).padStart(2,"0")} ${period}`;
-    }
+<!-- CALCULATOR -->
 
-    function elapsedText(hhmm) {
-      const [h, m] = hhmm.split(":").map(Number);
-      const start = h * 60 + m;
-      let diff = Math.floor(currentMinutes() - start);
+<section class="card">
 
-      // Assume the supplied time is from today; if it is later than now,
-      // treat it as AM/PM ambiguity only when a 12-hour interpretation makes sense.
-      if (diff < 0) {
-        if (h < 12) {
-          const altStart = (h + 12) * 60 + m;
-          diff = Math.floor(currentMinutes() - altStart);
+    <div class="title-row">
+
+        <div class="title-icon">
+            ⏱️
+        </div>
+
+        <h1>
+            Tiempo Afuera
+        </h1>
+
+    </div>
+
+
+    <div class="subtitle">
+
+        Escribe la hora en que salieron y calcula cuánto tiempo llevan afuera.
+
+    </div>
+
+
+
+    <div class="time-box">
+
+        <div class="time-left">
+
+            <div class="clock-icon">
+                🕒
+            </div>
+
+            <div>
+
+                <div class="time-label">
+                    Hora actual (Vancouver)
+                </div>
+
+                <div
+                    class="current-time"
+                    id="clock"
+                >
+                    --
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="date"
+            id="date"
+        >
+        </div>
+
+    </div>
+
+
+
+    <div class="input-row">
+
+        <input
+            id="arrivalTime"
+            class="time-input"
+            type="text"
+            inputmode="decimal"
+            placeholder="Ejemplo: 5:48"
+            autocomplete="off"
+        >
+
+        <button
+            id="calculateBtn"
+            class="calculate"
+        >
+            Calcular
+        </button>
+
+    </div>
+
+
+    <div class="hint">
+
+        ⓘ Solo escribe la hora, por ejemplo:
+        5:48, 6:10 o 4:35.
+
+    </div>
+
+
+
+    <div
+        id="result"
+        class="result"
+    >
+
+        <div class="result-label">
+            Tiempo afuera:
+        </div>
+
+        <div
+            id="resultTime"
+            class="result-time"
+        >
+        </div>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- RECORDS -->
+
+<section class="card">
+
+
+    <div class="records-header">
+
+
+        <div class="records-title">
+
+            <div style="font-size:34px;">
+                ☷
+            </div>
+
+            <div>
+
+                <h2>
+                    Registros activos
+                </h2>
+
+                <div class="records-description">
+                    Los tiempos se actualizan automáticamente.
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <button
+            id="clearBtn"
+            class="clear-button"
+        >
+            🗑 Limpiar todo
+        </button>
+
+
+    </div>
+
+
+
+    <div
+        id="entries"
+        class="entries"
+    >
+    </div>
+
+
+</section>
+
+
+</main>
+
+
+
+<footer class="footer">
+
+    Freedom Bikes Rentals • Vancouver
+
+</footer>
+
+
+
+<script>
+
+const TIME_ZONE = "America/Vancouver";
+
+
+const input =
+    document.getElementById("arrivalTime");
+
+const calculateButton =
+    document.getElementById("calculateBtn");
+
+const result =
+    document.getElementById("result");
+
+const resultTime =
+    document.getElementById("resultTime");
+
+const entriesContainer =
+    document.getElementById("entries");
+
+const clearButton =
+    document.getElementById("clearBtn");
+
+const clock =
+    document.getElementById("clock");
+
+const dateElement =
+    document.getElementById("date");
+
+
+
+let entries =
+    JSON.parse(
+        localStorage.getItem("freedomBikeTimes") || "[]"
+    );
+
+
+
+/* ==============================
+   CURRENT VANCOUVER TIME
+================================ */
+
+function currentVancouverTime(){
+
+    const parts =
+        new Intl.DateTimeFormat(
+            "en-CA",
+            {
+                timeZone:TIME_ZONE,
+
+                hour:"2-digit",
+                minute:"2-digit",
+                second:"2-digit",
+
+                hour12:false
+            }
+        ).formatToParts(new Date());
+
+
+    const values = {};
+
+
+    parts.forEach(part=>{
+
+        if(part.type !== "literal"){
+
+            values[part.type] =
+                Number(part.value);
+
         }
-      }
 
-      if (diff < 0) return "Hora futura";
+    });
 
-      const hours = Math.floor(diff / 60);
-      const minutes = diff % 60;
 
-      if (hours === 0) return `${minutes} minuto${minutes === 1 ? "" : "s"}`;
-      if (minutes === 0) return `${hours} hora${hours === 1 ? "" : "s"}`;
-      return `${hours} hora${hours === 1 ? "" : "s"} con ${minutes} minuto${minutes === 1 ? "" : "s"}`;
+    return {
+
+        hour:values.hour,
+        minute:values.minute,
+        second:values.second
+
+    };
+
+}
+
+
+
+/* ==============================
+   CLOCK
+================================ */
+
+function updateClock(){
+
+    clock.textContent =
+        new Intl.DateTimeFormat(
+            "en-US",
+            {
+                timeZone:TIME_ZONE,
+
+                hour:"numeric",
+                minute:"2-digit",
+
+                hour12:true
+            }
+        ).format(new Date());
+
+
+    dateElement.textContent =
+        "📅 " +
+        new Intl.DateTimeFormat(
+            "es-CA",
+            {
+                timeZone:TIME_ZONE,
+
+                weekday:"long",
+                day:"numeric",
+                month:"long",
+                year:"numeric"
+            }
+        ).format(new Date());
+
+}
+
+
+
+/* ==============================
+   PARSE SIMPLE TIME
+================================ */
+
+function parseTime(value){
+
+    value =
+        value
+        .trim()
+        .replace(";",":")
+        .replace(".",":");
+
+
+    if(!value.includes(":")){
+
+        if(value.length === 3){
+
+            value =
+                value.slice(0,1)
+                + ":" +
+                value.slice(1);
+
+        }
+
+        else if(value.length === 4){
+
+            value =
+                value.slice(0,2)
+                + ":" +
+                value.slice(2);
+
+        }
+
     }
 
-    function save() {
-      localStorage.setItem("timeOutsideEntries", JSON.stringify(entries));
+
+    const pieces =
+        value.split(":");
+
+
+    if(pieces.length !== 2){
+
+        return null;
+
     }
 
-    function renderEntries() {
-      if (!entries.length) {
-        entriesEl.innerHTML = '<div class="empty">No hay registros activos.</div>';
+
+    const hour =
+        Number(pieces[0]);
+
+    const minute =
+        Number(pieces[1]);
+
+
+    if(
+        !Number.isInteger(hour) ||
+        !Number.isInteger(minute) ||
+        hour < 1 ||
+        hour > 12 ||
+        minute < 0 ||
+        minute > 59
+    ){
+
+        return null;
+
+    }
+
+
+    return {
+
+        hour,
+        minute,
+
+        display:
+            hour +
+            ":" +
+            String(minute).padStart(2,"0")
+
+    };
+
+}
+
+
+
+/* ==============================
+   CALCULATE ELAPSED
+================================ */
+
+function calculateElapsed(time){
+
+    const now =
+        currentVancouverTime();
+
+
+    const nowMinutes =
+        now.hour * 60 +
+        now.minute;
+
+
+    let am;
+
+    let pm;
+
+
+    if(time.hour === 12){
+
+        am =
+            time.minute;
+
+        pm =
+            720 +
+            time.minute;
+
+    }
+
+    else{
+
+        am =
+            time.hour * 60 +
+            time.minute;
+
+        pm =
+            (time.hour + 12) * 60 +
+            time.minute;
+
+    }
+
+
+    const possible =
+        [am,pm]
+        .filter(
+            value =>
+                value <= nowMinutes
+        );
+
+
+    if(!possible.length){
+
+        return null;
+
+    }
+
+
+    const arrival =
+        Math.max(...possible);
+
+
+    return nowMinutes - arrival;
+
+}
+
+
+
+/* ==============================
+   FORMAT DURATION
+================================ */
+
+function durationText(minutes){
+
+    const hours =
+        Math.floor(minutes / 60);
+
+    const mins =
+        minutes % 60;
+
+
+    if(hours === 0){
+
+        return (
+            mins +
+            " minuto" +
+            (mins === 1 ? "" : "s")
+        );
+
+    }
+
+
+    if(mins === 0){
+
+        return (
+            hours +
+            " hora" +
+            (hours === 1 ? "" : "s")
+        );
+
+    }
+
+
+    return (
+        hours +
+        " hora" +
+        (hours === 1 ? "" : "s") +
+        " con " +
+        mins +
+        " minuto" +
+        (mins === 1 ? "" : "s")
+    );
+
+}
+
+
+
+/* ==============================
+   SAVE
+================================ */
+
+function save(){
+
+    localStorage.setItem(
+        "freedomBikeTimes",
+        JSON.stringify(entries)
+    );
+
+}
+
+
+
+/* ==============================
+   RENDER RECORDS
+================================ */
+
+function render(){
+
+    entriesContainer.innerHTML = "";
+
+
+    if(entries.length === 0){
+
+        entriesContainer.innerHTML =
+            '<div class="empty">No hay registros activos.</div>';
+
         return;
-      }
 
-      entriesEl.innerHTML = "";
-      entries.forEach(entry => {
-        const row = document.createElement("div");
-        row.className = "entry";
+    }
 
-        const arrival = document.createElement("div");
-        arrival.className = "entry-time";
-        arrival.textContent = `Llegada: ${format12Hour(entry.time)}`;
 
-        const elapsed = document.createElement("div");
-        elapsed.className = "elapsed";
-        elapsed.textContent = elapsedText(entry.time);
+    entries.forEach(entry=>{
 
-        const remove = document.createElement("button");
-        remove.className = "remove";
-        remove.textContent = "✕";
-        remove.title = "Eliminar";
-        remove.onclick = () => {
-          entries = entries.filter(x => x.id !== entry.id);
-          save();
-          renderEntries();
+
+        const parsed =
+            parseTime(entry.time);
+
+
+        if(!parsed){
+
+            return;
+
+        }
+
+
+        const elapsed =
+            calculateElapsed(parsed);
+
+
+        const row =
+            document.createElement("div");
+
+
+        row.className =
+            "entry";
+
+
+        const arrival =
+            document.createElement("div");
+
+
+        arrival.className =
+            "arrival";
+
+
+        arrival.innerHTML =
+            '<span class="arrival-icon">◷</span>' +
+            '<span>Llegada: <strong>' +
+            entry.time +
+            "</strong></span>";
+
+
+
+        const elapsedElement =
+            document.createElement("div");
+
+
+        elapsedElement.className =
+            "elapsed";
+
+
+        elapsedElement.textContent =
+            elapsed === null
+            ? "Hora inválida"
+            : durationText(elapsed);
+
+
+
+        const remove =
+            document.createElement("button");
+
+
+        remove.className =
+            "delete";
+
+
+        remove.textContent =
+            "×";
+
+
+        remove.onclick = ()=>{
+
+            entries =
+                entries.filter(
+                    item =>
+                        item.id !== entry.id
+                );
+
+
+            save();
+
+            render();
+
         };
 
-        row.append(arrival, elapsed, remove);
-        entriesEl.appendChild(row);
-      });
-    }
 
-    function addEntry() {
-      const time = arrivalInput.value;
-      if (!time) {
-        result.style.display = "block";
-        result.textContent = "Selecciona una hora de llegada.";
+        row.append(
+            arrival,
+            elapsedElement,
+            remove
+        );
+
+
+        entriesContainer.appendChild(row);
+
+    });
+
+}
+
+
+
+/* ==============================
+   CALCULATE BUTTON
+================================ */
+
+function calculate(){
+
+    const parsed =
+        parseTime(input.value);
+
+
+    if(!parsed){
+
+        result.style.display =
+            "block";
+
+        resultTime.textContent =
+            "Escribe una hora válida";
+
         return;
-      }
 
-      const elapsed = elapsedText(time);
-
-      result.style.display = "block";
-      result.innerHTML = `Desde las <strong>${format12Hour(time)}</strong> hasta ahora: <strong>${elapsed}</strong>.`;
-
-      entries.unshift({
-        id: Date.now(),
-        time
-      });
-
-      save();
-      renderEntries();
-      arrivalInput.value = "";
     }
 
-    calculateBtn.addEventListener("click", addEntry);
-    arrivalInput.addEventListener("keydown", e => {
-      if (e.key === "Enter") addEntry();
-    });
 
-    clearBtn.addEventListener("click", () => {
-      entries = [];
-      save();
-      renderEntries();
-      result.style.display = "none";
-    });
+    const elapsed =
+        calculateElapsed(parsed);
 
-    function tick() {
-      clockEl.textContent = `Hora actual: ${formatClock()}`;
-      renderEntries();
+
+    if(elapsed === null){
+
+        result.style.display =
+            "block";
+
+        resultTime.textContent =
+            "Esa hora todavía no ha ocurrido";
+
+        return;
+
     }
 
-    tick();
-    setInterval(tick, 1000);
-  </script>
+
+    result.style.display =
+        "block";
+
+
+    resultTime.textContent =
+        durationText(elapsed);
+
+
+
+    entries.unshift({
+
+        id:Date.now(),
+
+        time:parsed.display
+
+    });
+
+
+    save();
+
+    render();
+
+
+    input.value = "";
+
+    input.focus();
+
+}
+
+
+
+/* ==============================
+   EVENTS
+================================ */
+
+calculateButton.addEventListener(
+    "click",
+    calculate
+);
+
+
+input.addEventListener(
+    "keydown",
+    event=>{
+
+        if(event.key === "Enter"){
+
+            calculate();
+
+        }
+
+    }
+);
+
+
+clearButton.addEventListener(
+    "click",
+    ()=>{
+
+        entries = [];
+
+        save();
+
+        render();
+
+        result.style.display =
+            "none";
+
+    }
+);
+
+
+
+/* ==============================
+   START
+================================ */
+
+function update(){
+
+    updateClock();
+
+    render();
+
+}
+
+
+update();
+
+
+setInterval(
+    update,
+    1000
+);
+
+</script>
+
+
 </body>
 </html>
